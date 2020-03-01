@@ -14,6 +14,7 @@ import (
 	"text/scanner"
 )
 
+// LoadControlData loads the font control data from a file.
 func LoadControlData(path string) (*ControlData, error) {
 	file, err := os.Open(path)
 	if err != nil {
@@ -24,7 +25,7 @@ func LoadControlData(path string) (*ControlData, error) {
 }
 
 func ReadControlData(r io.Reader) (*ControlData, error) {
-	return parseControlData("<input>", r)
+	return parseControlData("bmfont", r)
 }
 
 func parseControlData(filename string, r io.Reader) (*ControlData, error) {

@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// Package bmfomt implements a parser for bitmap font control files (.fnt)
+// Package bmfont implements a parser for bitmap font control files (.fnt)
 // created with AngelCode's bitmap font generator or other tools that generate
 // output in the same format.
 //
