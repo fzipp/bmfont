@@ -12,8 +12,14 @@ import (
 	"path/filepath"
 )
 
+// A BitmapFont is a bitmap font based on one or more sheet images for the
+// characters and a font descriptor.
 type BitmapFont struct {
+	// Descriptor holds the metadata for the font, such as positions and bounds
+	// of the characters in the sheet images.
 	Descriptor *Descriptor
+	// PageSheets contains the loaded sheet images for the pages. The keys
+	// correspond to the keys of the pages map in the descriptor.
 	PageSheets map[int]image.Image
 }
 
@@ -55,6 +61,10 @@ func Read(r io.Reader, sheets SheetReaderFunc) (f *BitmapFont, err error) {
 	return &font, nil
 }
 
+// A SheetReaderFunc is a function that provides a reader for a page sheet
+// image file name. It is used by the Read function to load a font from a
+// different source than only the file system. The filename parameter is the
+// name provided by the File field of a Page in the font descriptor.
 type SheetReaderFunc func(filename string) (io.ReadCloser, error)
 
 func (f SheetReaderFunc) read(filename string) (img image.Image, err error) {

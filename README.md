@@ -19,7 +19,6 @@ Load a bitmap font and draw text to an image:
 package main
 
 import (
-	"fmt"
 	"log"
 
 	"github.com/fzipp/bmfont"
@@ -38,6 +37,36 @@ ABCDEFGHIJKLMNOPQRSTUVWXYZ`)
 	// ...
 }
 ```
+
+Measure the text before drawing in order to determine the size of the image:
+
+```
+package main
+
+import (
+	"log"
+
+	"github.com/fzipp/bmfont"
+)
+
+func main() {
+	font, err := bmfont.Load("ExampleFont.fnt")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+    text := `hello, world
+This is an example.
+abcdefghijklmnopqrstuvwxyz
+ABCDEFGHIJKLMNOPQRSTUVWXYZ`
+
+	bounds := font.MeasureText(text)
+	img := image.NewRGBA(image.Rect(0, 0, bounds.Dx(), bounds.Dy()))
+	font.DrawText(img, image.Point{}.Sub(bounds.Min), text)
+	// ...
+}
+```
+
 
 Only load the descriptor of a bitmap font:
 

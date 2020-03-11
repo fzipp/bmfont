@@ -116,10 +116,15 @@ const (
 	All   Channel = 15
 )
 
+// CharPair is a pair of characters. It is used as the key in the font's
+// kerning map.
 type CharPair struct {
 	First, Second rune
 }
 
+// Kerning is a horizontal offset in pixels to be used if a specific character
+// pair occurs when drawing text. It is used for the values in the font's
+// kerning map.
 type Kerning struct {
 	Amount int
 }
