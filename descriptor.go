@@ -2,17 +2,17 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// Package bmfont implements a parser for bitmap font control files (.fnt)
-// created with AngelCode's bitmap font generator or other tools that generate
-// output in the same format.
-//
-// The parser parses the text format, not the binary format. Format description:
-// http://www.angelcode.com/products/bmfont/doc/file_format.html
 package bmfont
 
-import "image"
+import (
+	"image"
+	"io"
+	"os"
+	"path/filepath"
+)
 
-type ControlData struct {
+// A Descriptor holds metadata for a bitmap font.
+type Descriptor struct {
 	Info    Info
 	Common  Common
 	Pages   map[int]Page
@@ -117,10 +117,30 @@ const (
 )
 
 type CharPair struct {
-	First  rune
-	Second rune
+	First, Second rune
 }
 
 type Kerning struct {
 	Amount int
+}
+
+// LoadDescriptor loads the font descriptor data from a BMFont descriptor file in
+// text format (usually with the file extension .fnt). It does not load the
+// referenced page sheet images. If you also want to load the page sheet
+// images, use the Load function to get a complete BitmapFont instance.
+func LoadDescriptor(path string) (d *Descriptor, err error) {
+	f, err := os.Open(path)
+	if err != nil {
+		return nil, err
+	}
+	defer closeChecked(f, &err)
+	return parseDescriptor(filepath.Base(path), f)
+}
+
+// ReadDescriptor parses font descriptor data in BMFont's text format from a
+// reader. It does not load the referenced page sheet images. If you also want
+// to load the page sheet images, use the Load function to get a complete
+// BitmapFont instance.
+func ReadDescriptor(r io.Reader) (d *Descriptor, err error) {
+	return parseDescriptor("bmfont", r)
 }

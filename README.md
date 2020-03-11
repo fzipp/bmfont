@@ -5,7 +5,7 @@ created with [AngelCode's bitmap font generator](https://www.angelcode.com/produ
 or other tools that generate output in the same format.
 
 This package uses the [text format](ttp://www.angelcode.com/products/bmfont/doc/file_format.html)
-for font control files (.fnt), not the binary format.
+for font descriptor files (.fnt), not the binary format.
 
 ## Documentation
 
@@ -39,7 +39,7 @@ ABCDEFGHIJKLMNOPQRSTUVWXYZ`)
 }
 ```
 
-Only load the control data of a bitmap font:
+Only load the descriptor of a bitmap font:
 
 ```
 package main
@@ -52,13 +52,13 @@ import (
 )
 
 func main() {
-	font, err := bmfont.LoadControlData("ExampleFont.fnt")
+	desc, err := bmfont.LoadDescriptor("ExampleFont.fnt")
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println(font.Info.Face)
-	fmt.Println("line height:", font.Common.LineHeight)
-	fmt.Println("letter A width:", font.Chars['A'].Width)
+	fmt.Println(desc.Info.Face)
+	fmt.Println("line height:", desc.Common.LineHeight)
+	fmt.Println("letter A width:", desc.Chars['A'].Width)
 }
 ```
 

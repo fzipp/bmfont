@@ -7,34 +7,18 @@ package bmfont
 import (
 	"errors"
 	"io"
-	"os"
-	"path/filepath"
 	"strconv"
 	"strings"
 	"text/scanner"
 )
 
-// LoadControlData loads the font control data from a file.
-func LoadControlData(path string) (*ControlData, error) {
-	file, err := os.Open(path)
-	if err != nil {
-		return nil, err
-	}
-	defer file.Close()
-	return parseControlData(filepath.Base(path), file)
-}
-
-func ReadControlData(r io.Reader) (*ControlData, error) {
-	return parseControlData("bmfont", r)
-}
-
-func parseControlData(filename string, r io.Reader) (*ControlData, error) {
+func parseDescriptor(filename string, r io.Reader) (*Descriptor, error) {
 	var p tagsParser
 	tags, err := p.parse(filename, r)
 	if err != nil {
 		return nil, err
 	}
-	font := ControlData{
+	font := Descriptor{
 		Pages:   make(map[int]Page),
 		Chars:   make(map[rune]Char),
 		Kerning: make(map[CharPair]Kerning),
@@ -234,20 +218,4 @@ func (t *tag) intListAttr(name string, n int) []int {
 		values[i] = value
 	}
 	return values
-}
-
-type errorList []error
-
-func (list errorList) Err() error {
-	if len(list) == 0 {
-		return nil
-	}
-	return list
-}
-
-func (list errorList) Error() string {
-	if len(list) == 0 {
-		return "no errors"
-	}
-	return list[0].Error()
 }
