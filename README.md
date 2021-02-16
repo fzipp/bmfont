@@ -15,7 +15,7 @@ Package documentation is available [on pkg.go.dev](https://pkg.go.dev/github.com
 
 Load a bitmap font and draw text to an image:
 
-```
+```go
 package main
 
 import (
@@ -40,7 +40,7 @@ ABCDEFGHIJKLMNOPQRSTUVWXYZ`)
 
 Measure the text before drawing in order to determine the size of the image:
 
-```
+```go
 package main
 
 import (
@@ -70,7 +70,7 @@ ABCDEFGHIJKLMNOPQRSTUVWXYZ`
 
 Only load the descriptor of a bitmap font:
 
-```
+```go
 package main
 
 import (
