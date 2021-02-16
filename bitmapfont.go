@@ -40,7 +40,7 @@ func Load(path string) (f *BitmapFont, err error) {
 // all the referenced page sheet images.
 // The page sheet images are read from the readers provided by the given
 // SheetReaderFunc. These sheet readers are closed after use. If you want to
-// keep them open wrap them via ioutil.NopCloser.
+// keep them open wrap them via io.NopCloser.
 // The resulting bitmap font is ready to be used to draw text on an image.
 func Read(r io.Reader, sheets SheetReaderFunc) (f *BitmapFont, err error) {
 	desc, err := ReadDescriptor(r)
