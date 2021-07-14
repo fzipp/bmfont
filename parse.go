@@ -124,7 +124,7 @@ func (p *tagsParser) parse(filename string, r io.Reader) ([]tag, error) {
 	for p.tok != scanner.EOF {
 		tagName := p.lit
 		p.expect(scanner.Ident, "tag name")
-		var attrs = make(map[string]string)
+		attrs := make(map[string]string)
 		for p.tok != '\n' && p.tok != scanner.EOF {
 			attrName := p.lit
 			p.expect(scanner.Ident, "attribute name")
