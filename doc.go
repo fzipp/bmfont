@@ -8,5 +8,5 @@
 //
 // The parser for the font descriptor files (.fnt) reads the text format, not the
 // binary format. Format description:
-// http://www.angelcode.com/products/bmfont/doc/file_format.html
+// https://www.angelcode.com/products/bmfont/doc/file_format.html
 package bmfont
